@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 
+using Force.Engine.ForceAll.Source;
+
 namespace Force.Engine.Force2D.Modules
 {
     internal class Aught
@@ -18,6 +20,21 @@ namespace Force.Engine.Force2D.Modules
             Position = position;
             Enabled = enabled;
             Rotation = rotation;
+        }
+    }
+
+    internal class ForceAught
+    {
+        // PROPERTIES
+        public vector2float Position;
+        public float Rotation;
+        public bool Enabled;
+
+        public ForceAught(vector2float position, float rotation, bool enabled)
+        {
+            Position = position;
+            Rotation = rotation;
+            Enabled = enabled;
         }
     }
 }

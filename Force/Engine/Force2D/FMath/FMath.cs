@@ -6,8 +6,10 @@ using System;
 
 namespace Force.Engine.Force2D.FMath
 {
+    // FORCE MATH 
     internal class FMath
     {
+        // FORCE LERP ANGLE
         public static float LerpAngle(float from, float to, float amount)
         {
             from = (from + MathHelper.TwoPi) % MathHelper.TwoPi;
@@ -19,6 +21,7 @@ namespace Force.Engine.Force2D.FMath
             return result;
         }
 
+        // FORCE ABS
         public static float Abs(float number)
         {
             return (number < 0) ? -number : number;

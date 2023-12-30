@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
+
 using Force.Engine.Force2D.Modules;
 
 namespace Force.Engine.Force2D.ModuleDerivatives
@@ -41,7 +42,7 @@ namespace Force.Engine.Force2D.ModuleDerivatives
 
         public void CollideWith(Structure other, GameTime gameTime)
         {
-            if (Math.Abs(this.Position.Y - other.Position.Y) < 10)
+            if (FMath.FMath.Abs(this.Position.Y - other.Position.Y) < 10)
             {
                 Position -= other.PlayerMoveDirection * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
