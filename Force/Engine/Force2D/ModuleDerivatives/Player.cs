@@ -30,6 +30,7 @@ namespace Force.Engine.Force2D.ModuleDerivatives
             SprintSpeed = speed;
         }
 
+        // COLLISIONS
         public bool DetectCollisionWith(Structure object1)
         {
             Rectangle rect1 = new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
