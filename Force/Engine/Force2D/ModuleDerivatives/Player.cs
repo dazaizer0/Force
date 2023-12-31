@@ -40,7 +40,7 @@ namespace Force.Engine.Force2D.ModuleDerivatives
             return rect1.Intersects(rect2) == true;
         }
 
-        public void CollideWith(Structure other, GameTime gameTime)
+        public void PlatformerCollideWith(Structure other, GameTime gameTime)
         {
             if (FMath.FMath.Abs(this.Position.Y - other.Position.Y) < 10)
             {
@@ -56,6 +56,11 @@ namespace Force.Engine.Force2D.ModuleDerivatives
             }
         }
 
+        public void SimpleCollideWith(Structure other, GameTime gameTime)
+        {
+            Position -= other.PlayerMoveDirection * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
         public void AutomaticGetOn(Structure other, GameTime gameTime)
         {
             Position -= other.PlayerMoveDirection * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -67,7 +72,7 @@ namespace Force.Engine.Force2D.ModuleDerivatives
             }
         }
 
-        public void AccelerateMovement(GameTime gameTime)
+        public void AcceleratePlatformerMovement(GameTime gameTime)
         {
             var keyboard_state = Keyboard.GetState();
 
@@ -102,6 +107,44 @@ namespace Force.Engine.Force2D.ModuleDerivatives
                     IsJumping = false;
                     JumpEnable = false;
                 }
+            }
+
+            if (keyboard_state.IsKeyDown(Keys.LeftShift))
+            {
+                Speed = SprintSpeed;
+            }
+            else
+            {
+                Speed = BaseSpeed;
+            }
+        }
+
+        public void AccelerateTopDownMovement(GameTime gameTime)
+        {
+            var keyboard_state = Keyboard.GetState();
+
+            if (keyboard_state.IsKeyDown(Keys.D))
+            {
+                Position.X += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveDirection = new Vector2(1, 0);
+            }
+
+            if (keyboard_state.IsKeyDown(Keys.A))
+            {
+                Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveDirection = new Vector2(-1, 0);
+            }
+
+            if (keyboard_state.IsKeyDown(Keys.W))
+            {
+                Position.Y -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveDirection = new Vector2(0, 1);
+            }
+
+            if (keyboard_state.IsKeyDown(Keys.S))
+            {
+                Position.Y += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveDirection = new Vector2(0, -1);
             }
 
             if (keyboard_state.IsKeyDown(Keys.LeftShift))

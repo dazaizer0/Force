@@ -9,9 +9,9 @@ using Force.Engine.Force2D.FMath;
 using Force.Engine.Force2D.ModuleDerivatives;
 using Force.Engine.Force2D.Modules;
 
-namespace Force.Game.Examples
+namespace Force.Game
 {
-    public class Platformer : Microsoft.Xna.Framework.Game
+    public class GameScene : Microsoft.Xna.Framework.Game
     {
         #region VARIABLES
         // BASIC VARIABLES
@@ -20,20 +20,22 @@ namespace Force.Game.Examples
 
         // VARIABLES
         private Vector2 mouseClickPosition;
+        private const int gridSize = 32;
 
         // TEXTURES
         private static Texture2D pixelTexture2D;
 
         // STRUCTURES
-        private Structure structure;
+        private Structure circle;
+        private Structure gridCursor;
 
         // PLAYER
         private Player player;
         private Camera camera;
         #endregion
 
-        #region PLATFORMER
-        public Platformer()
+        #region GAME_SCENE
+        public GameScene()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -49,11 +51,15 @@ namespace Force.Game.Examples
             camera.CenterProperties = new Vector2(410, 250);
 
             // STRUCTURES
-            structure = new Structure(new Vector2(100, 465), 0f, pixelTexture2D, Color.Black, true);
+            circle = new Structure(new Vector2(100, 100), 0f, pixelTexture2D, Color.Black, true);
+            gridCursor = new Structure(new Vector2(0, 0), 0f, pixelTexture2D, Color.Red, true);
 
             // PLAYER
             player = new Player(new Vector2(0, 0), 0.0f, pixelTexture2D, 200f, Color.White, true);
-            player.Mass = 35;
+            player.SprintSpeed = 300f;
+
+            // SETUP
+            circle.SetupStructure(gridSize);
 
             base.Initialize();
         }
@@ -65,8 +71,9 @@ namespace Force.Game.Examples
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // LOAD TEXTURES
-            player.Texture = Content.Load<Texture2D>("textures/white_box32");
-            structure.Texture = Content.Load<Texture2D>("textures/white_box32");
+            player.Texture = Content.Load<Texture2D>("textures/white_circle32");
+            circle.Texture = Content.Load<Texture2D>("textures/white_circle32");
+            gridCursor.Texture = Content.Load<Texture2D>("textures/white_box32");
 
             // CREATE PIXEL TEXTURE
             pixelTexture2D = new Texture2D(GraphicsDevice, 1, 1);
@@ -82,34 +89,35 @@ namespace Force.Game.Examples
                 Exit();
 
             // PLAYER
-            player.AcceleratePlatformerMovement(gameTime);
-            player.SimplePhysics(gameTime, new Vector2(0, 9.81f));
-            player.Update(gameTime);
+            player.AccelerateTopDownMovement(gameTime);
 
             // CAMERA MOVEMENT
             camera.Fallow(new Vector2(player.Position.X + camera.CenterProperties.X, player.Position.Y + camera.CenterProperties.Y), gameTime);
 
             // CAMERA SHAKE AND POSITION (GET)
-            MouseState mouse_state = Mouse.GetState();
+            MouseState mouseState = Mouse.GetState();
 
-            if (mouse_state.LeftButton == ButtonState.Pressed)
+            if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                mouseClickPosition = new Vector2(mouse_state.X, mouse_state.Y);
+                mouseClickPosition = new Vector2(mouseState.X, mouseState.Y);
                 camera.Shake(0.04f, 6f);
             }
 
-            // GROUND COLLISION
-            if (player.Position.Y > graphics.PreferredBackBufferHeight - player.Texture.Height / 2)
-            {
-                player.JumpEnable = true;
-                player.Position.Y = graphics.PreferredBackBufferHeight - player.Texture.Height / 2;
-            }
+            // GRID CURSOR POSITION
+            Matrix inverseCameraTransform = Matrix.Invert(camera.Transform);
+
+            // GRID CURSOR POSITION
+            gridCursor.Position = FMath.ConvertMovingVectorToGridVector(
+                new Vector2(mouseState.X, mouseState.Y),
+                gridSize,
+                inverseCameraTransform
+            );
 
             // STRUCTURE COLLISION
-            if (player.DetectCollisionWith(structure))
+            if (player.DetectCollisionWith(circle))
             {
-                structure.GetStructureMoveDirection(player);
-                player.PlatformerCollideWith(structure, gameTime);
+                circle.GetStructureMoveDirection(player);
+                player.SimpleCollideWith(circle, gameTime);
             }
 
             base.Update(gameTime);
@@ -125,18 +133,12 @@ namespace Force.Game.Examples
             #region SPRITE_BATCH_DRAW
             spriteBatch.Begin(transformMatrix: camera.Transform);
 
-            for (int x = 0; x < graphics.PreferredBackBufferWidth; x += 32)
-            {
-                for (int y = 0; y < graphics.PreferredBackBufferHeight + 32; y += 32)
-                {
-                    spriteBatch.Draw(pixelTexture2D, new Rectangle(x, y, 32, 32), Color.Green);
-
-                }
-            }
+            // DRAW GRID CURSOR
+            gridCursor.DrawThis(spriteBatch);
 
             // DRAW STRUCTURES
             player.DrawThis(spriteBatch);
-            structure.DrawThis(spriteBatch);
+            circle.DrawThis(spriteBatch);
 
             spriteBatch.End();
             #endregion

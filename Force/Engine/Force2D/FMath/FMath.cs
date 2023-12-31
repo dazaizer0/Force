@@ -26,5 +26,27 @@ namespace Force.Engine.Force2D.FMath
         {
             return (number < 0) ? -number : number;
         }
+
+        public static Vector2 ConvertMovingVectorToGridVector(Vector2 screenPosition, int gridSize, Matrix inverseCameraTransform)
+        {
+            Vector2 worldPosition = Vector2.Transform(screenPosition, inverseCameraTransform);
+
+            Vector2 gridPosition = new Vector2(
+                (float)Math.Floor(worldPosition.X / gridSize) * gridSize,
+                (float)Math.Floor(worldPosition.Y / gridSize) * gridSize
+            );
+
+            return gridPosition;
+        }
+
+        public static Vector2 ConvertVectorToGridVector(Vector2 vector, int gridSize)
+        {
+            Vector2 gridPosition = new Vector2(
+                (float)Math.Floor(vector.X / gridSize) * gridSize,
+                (float)Math.Floor(vector.Y / gridSize) * gridSize
+            );
+
+            return gridPosition;
+        }
     }
 }

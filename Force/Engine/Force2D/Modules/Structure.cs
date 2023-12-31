@@ -22,6 +22,11 @@ namespace Force.Engine.Force2D.Modules
             ObjectColor = object_color;
         }
 
+        public void SetupStructure(int gridSize)
+        {
+            this.Position = FMath.FMath.ConvertVectorToGridVector(this.Position, gridSize);
+        }
+
         public void DrawThis(SpriteBatch spriteBatch)
         {
             if (Enabled)
