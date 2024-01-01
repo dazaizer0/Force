@@ -128,7 +128,17 @@ namespace Force.Game
                 player.SimpleCollideWith(circle, gameTime);
             }
 
-            movingStructure.MoveBetweenX(gameTime, 50, 150);
+            if (player.DetectCollisionWith(movingStructure))
+            {
+                movingStructure.ObjectColor = Color.Blue;
+            }
+            else
+            {
+                movingStructure.ObjectColor = Color.Red;
+            }
+
+            // MOVING STRUCTURE
+            movingStructure.MoveAlongX(gameTime, 50, 150);
 
             base.Update(gameTime);
         }
@@ -147,10 +157,10 @@ namespace Force.Game
             gridCursor.DrawThis(spriteBatch);
 
             // DRAW STRUCTURES
+            movingStructure.DrawThis(spriteBatch);
+
             player.DrawThis(spriteBatch);
             circle.DrawThis(spriteBatch);
-
-            movingStructure.DrawThis(spriteBatch);
 
             spriteBatch.End();
             #endregion

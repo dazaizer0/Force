@@ -13,6 +13,8 @@ namespace Force.Engine.Force2D.ModuleDerivatives
         public Vector2 Direction;
         public float Speed;
 
+        private bool Moving;
+
         public MovingStructure(Vector2 position, float speed, float rotation, Texture2D texture, Color object_color, bool enabled) :
             base(position, rotation, texture, object_color, enabled)
         {
@@ -24,7 +26,7 @@ namespace Force.Engine.Force2D.ModuleDerivatives
             this.Position += Direction * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
-        public void MoveBetweenX(GameTime gameTime, int xPos1, int xPos2)
+        public void MoveAlongX(GameTime gameTime, int xPos1, int xPos2)
         {
             if (this.Position.X < xPos1)
                 this.Direction = new Vector2(this.Speed, 0);
