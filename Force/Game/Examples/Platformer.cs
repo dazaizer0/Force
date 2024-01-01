@@ -129,7 +129,7 @@ namespace Force.Game.Examples
             {
                 for (int y = 0; y < graphics.PreferredBackBufferHeight + 32; y += 32)
                 {
-                    spriteBatch.Draw(pixelTexture2D, new Rectangle(x, y, 32, 32), Color.Green);
+                    spriteBatch.Draw(pixelTexture2D, new Rectangle(x, y, 32, 32), Color.Magenta);
 
                 }
             }

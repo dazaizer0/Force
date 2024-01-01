@@ -8,6 +8,7 @@ using Force.Engine.Force2D.Physics;
 using Force.Engine.Force2D.FMath;
 using Force.Engine.Force2D.ModuleDerivatives;
 using Force.Engine.Force2D.Modules;
+using Force.Engine.Force2D.Map;
 
 namespace Force.Game
 {
@@ -20,7 +21,7 @@ namespace Force.Game
 
         // VARIABLES
         private Vector2 mouseClickPosition;
-        private const int gridSize = 32;
+        private Grid grid = new Grid();
 
         // TEXTURES
         private static Texture2D pixelTexture2D;
@@ -28,6 +29,8 @@ namespace Force.Game
         // STRUCTURES
         private Structure circle;
         private Structure gridCursor;
+
+        private MovingStructure movingStructure;
 
         // PLAYER
         private Player player;
@@ -51,15 +54,20 @@ namespace Force.Game
             camera.CenterProperties = new Vector2(410, 250);
 
             // STRUCTURES
-            circle = new Structure(new Vector2(100, 100), 0f, pixelTexture2D, Color.Black, true);
-            gridCursor = new Structure(new Vector2(0, 0), 0f, pixelTexture2D, Color.Red, true);
+            circle = new Structure(new Vector2(100, 100), 0f, pixelTexture2D, Color.White, true);
+            gridCursor = new Structure(new Vector2(0, 0), 0f, pixelTexture2D, Color.Yellow, true);
+
+            movingStructure = new MovingStructure (new Vector2(100, 150), 0f, pixelTexture2D, Color.Red, true);
+            movingStructure.Direction = new Vector2(-20, 0);
+            movingStructure.Speed = 50;
 
             // PLAYER
-            player = new Player(new Vector2(0, 0), 0.0f, pixelTexture2D, 200f, Color.White, true);
-            player.SprintSpeed = 300f;
+            player = new Player(new Vector2(0, 0), 0.0f, pixelTexture2D, 128f, Color.Yellow, true);
 
             // SETUP
-            circle.SetupStructure(gridSize);
+            grid.GridSize = 32;
+
+            circle.SetupStructure(grid.GridSize);
 
             base.Initialize();
         }
@@ -74,6 +82,7 @@ namespace Force.Game
             player.Texture = Content.Load<Texture2D>("textures/white_circle32");
             circle.Texture = Content.Load<Texture2D>("textures/white_circle32");
             gridCursor.Texture = Content.Load<Texture2D>("textures/white_box32");
+            movingStructure.Texture = Content.Load<Texture2D>("textures/white_box32");
 
             // CREATE PIXEL TEXTURE
             pixelTexture2D = new Texture2D(GraphicsDevice, 1, 1);
@@ -99,17 +108,17 @@ namespace Force.Game
 
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                mouseClickPosition = new Vector2(mouseState.X, mouseState.Y);
                 camera.Shake(0.04f, 6f);
+                mouseClickPosition = new Vector2(mouseState.X, mouseState.Y);
             }
-
+            
             // GRID CURSOR POSITION
             Matrix inverseCameraTransform = Matrix.Invert(camera.Transform);
 
             // GRID CURSOR POSITION
             gridCursor.Position = FMath.ConvertMovingVectorToGridVector(
                 new Vector2(mouseState.X, mouseState.Y),
-                gridSize,
+                grid.GridSize,
                 inverseCameraTransform
             );
 
@@ -120,6 +129,8 @@ namespace Force.Game
                 player.SimpleCollideWith(circle, gameTime);
             }
 
+            movingStructure.Move(gameTime);
+
             base.Update(gameTime);
         }
         #endregion
@@ -127,7 +138,7 @@ namespace Force.Game
         #region DRAW
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // SPRITE BATCH DRAW
             #region SPRITE_BATCH_DRAW
@@ -139,6 +150,8 @@ namespace Force.Game
             // DRAW STRUCTURES
             player.DrawThis(spriteBatch);
             circle.DrawThis(spriteBatch);
+
+            movingStructure.DrawThis(spriteBatch);
 
             spriteBatch.End();
             #endregion

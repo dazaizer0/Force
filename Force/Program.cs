@@ -7,16 +7,16 @@ SceneManager.ActualScene = 2;
 // PROGRAM
 if (SceneManager.ActualScene == 0)
 {
-    using var scene1 = new Force.Game.Examples.Platformer();
-    scene1.Run();
+    using var actualGameScene = new Force.Game.Examples.Platformer();
+    actualGameScene.Run();
 }
 else if (SceneManager.ActualScene == 1)
 {
-    using var scene1 = new Force.Game.Examples.Physics();
-    scene1.Run();
+    using var actualGameScene = new Force.Game.Examples.Physics();
+    actualGameScene.Run();
 }
 else if (SceneManager.ActualScene == 2)
 {
-    using var scene1 = new Force.Game.GameScene();
-    scene1.Run();
+    using var actualGameScene = new Force.Game.GameScene();
+    actualGameScene.Run();
 }

@@ -129,22 +129,22 @@ namespace Force.Engine.Force2D.ModuleDerivatives
                 MoveDirection = new Vector2(1, 0);
             }
 
-            if (keyboard_state.IsKeyDown(Keys.A))
+            else if (keyboard_state.IsKeyDown(Keys.A))
             {
                 Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 MoveDirection = new Vector2(-1, 0);
             }
 
-            if (keyboard_state.IsKeyDown(Keys.W))
+            else if (keyboard_state.IsKeyDown(Keys.W))
             {
                 Position.Y -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                MoveDirection = new Vector2(0, 1);
+                MoveDirection = new Vector2(0, -1);
             }
 
-            if (keyboard_state.IsKeyDown(Keys.S))
+            else if (keyboard_state.IsKeyDown(Keys.S))
             {
                 Position.Y += Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                MoveDirection = new Vector2(0, -1);
+                MoveDirection = new Vector2(0, 1);
             }
 
             if (keyboard_state.IsKeyDown(Keys.LeftShift))

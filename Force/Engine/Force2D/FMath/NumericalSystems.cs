@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Force.Engine.ForceAll.Source
+namespace Force.Engine.Force2D.FMath
 {
     internal class vector2int
     {
