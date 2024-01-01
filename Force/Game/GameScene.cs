@@ -57,9 +57,8 @@ namespace Force.Game
             circle = new Structure(new Vector2(100, 100), 0f, pixelTexture2D, Color.White, true);
             gridCursor = new Structure(new Vector2(0, 0), 0f, pixelTexture2D, Color.Yellow, true);
 
-            movingStructure = new MovingStructure (new Vector2(100, 150), 0f, pixelTexture2D, Color.Red, true);
-            movingStructure.Direction = new Vector2(-20, 0);
-            movingStructure.Speed = 50;
+            movingStructure = new MovingStructure (new Vector2(100, 150), 50, 0f, pixelTexture2D, Color.Red, true);
+            movingStructure.Direction = new Vector2(-movingStructure.Speed, 0);
 
             // PLAYER
             player = new Player(new Vector2(0, 0), 0.0f, pixelTexture2D, 128f, Color.Yellow, true);
@@ -129,7 +128,7 @@ namespace Force.Game
                 player.SimpleCollideWith(circle, gameTime);
             }
 
-            movingStructure.Move(gameTime);
+            movingStructure.MoveBetweenX(gameTime, 50, 150);
 
             base.Update(gameTime);
         }
