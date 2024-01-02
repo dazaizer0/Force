@@ -10,17 +10,17 @@ namespace Force.Engine.Force2D.ModuleDerivatives
 {
     internal class Player : PhysicsStructure
     {
-        // PROPERTIES
+        // PUBLIC PROPERTIES
         public float Speed;
         public float BaseSpeed;
         public float SprintSpeed;
+        public float JumpForce = 900f;
+        public bool JumpEnable = true;
 
-        // JUMP PROPERTIES
+        // PRIVATE
         private bool IsJumping = false;
-        private float JumpForce = 900f;
         private float JumpTime = 0f;
         private const float MaxJumpTime = 0.5f;
-        public bool JumpEnable = true;
 
         public Vector2 MoveDirection;
 
@@ -154,6 +154,28 @@ namespace Force.Engine.Force2D.ModuleDerivatives
             else
             {
                 Speed = BaseSpeed;
+            }
+        }
+
+        public void EnableScreenEdgeCollisions(GraphicsDeviceManager graphics)
+        {
+            if (this.Position.X > graphics.PreferredBackBufferWidth - this.Texture.Width / 2)
+            {
+                this.Position.X = graphics.PreferredBackBufferWidth - this.Texture.Width / 2;
+            }
+            else if (this.Position.X < this.Texture.Width / 2)
+            {
+                this.Position.X = this.Texture.Width / 2;
+            }
+
+            if (this.Position.Y > graphics.PreferredBackBufferHeight - this.Texture.Height / 2)
+            {
+                this.Position.Y = graphics.PreferredBackBufferHeight - this.Texture.Height / 2;
+                this.JumpEnable = true;
+            }
+            else if (this.Position.Y < this.Texture.Height / 2)
+            {
+                this.Position.Y = this.Texture.Height / 2;
             }
         }
     }

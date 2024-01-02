@@ -18,9 +18,6 @@ namespace Force.Game.Examples
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        // VARIABLES
-        private Vector2 mouseClickPosition;
-
         // TEXTURES
         private static Texture2D pixelTexture2D;
 
@@ -94,18 +91,12 @@ namespace Force.Game.Examples
 
             if (mouse_state.LeftButton == ButtonState.Pressed)
             {
-                mouseClickPosition = new Vector2(mouse_state.X, mouse_state.Y);
                 camera.Shake(0.04f, 6f);
             }
 
-            // GROUND COLLISION
-            if (player.Position.Y > graphics.PreferredBackBufferHeight - player.Texture.Height / 2)
-            {
-                player.JumpEnable = true;
-                player.Position.Y = graphics.PreferredBackBufferHeight - player.Texture.Height / 2;
-            }
+            // COLLISIONS
+            player.EnableScreenEdgeCollisions(graphics);
 
-            // STRUCTURE COLLISION
             if (player.DetectCollisionWith(structure))
             {
                 structure.GetStructureMoveDirection(player);
