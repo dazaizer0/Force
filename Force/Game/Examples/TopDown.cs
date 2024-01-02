@@ -10,9 +10,9 @@ using Force.Engine.Force2D.ModuleDerivatives;
 using Force.Engine.Force2D.Modules;
 using Force.Engine.Force2D.Map;
 
-namespace Force.Game
+namespace Force.Game.Examples
 {
-    public class GameScene : Microsoft.Xna.Framework.Game
+    public class TopDown : Microsoft.Xna.Framework.Game
     {
         #region VARIABLES
         // BASIC VARIABLES
@@ -38,7 +38,7 @@ namespace Force.Game
         #endregion
 
         #region GAME_SCENE
-        public GameScene()
+        public TopDown()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -57,7 +57,7 @@ namespace Force.Game
             circle = new Structure(new Vector2(100, 100), 0f, pixelTexture2D, Color.White, true);
             gridCursor = new Structure(new Vector2(0, 0), 0f, pixelTexture2D, Color.Yellow, true);
 
-            movingStructure = new MovingStructure (new Vector2(100, 150), 50, 0f, pixelTexture2D, Color.Red, true);
+            movingStructure = new MovingStructure(new Vector2(100, 150), 50, 0f, pixelTexture2D, Color.Red, true);
             movingStructure.Direction = new Vector2(-movingStructure.Speed, 0);
 
             // PLAYER
@@ -110,7 +110,7 @@ namespace Force.Game
                 camera.Shake(0.04f, 6f);
                 mouseClickPosition = new Vector2(mouseState.X, mouseState.Y);
             }
-            
+
             // GRID CURSOR POSITION
             Matrix inverseCameraTransform = Matrix.Invert(camera.Transform);
 

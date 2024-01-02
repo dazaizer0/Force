@@ -49,11 +49,11 @@ namespace Force.Game.Examples
             camera.CenterProperties = new Vector2(410, 250);
 
             // STRUCTURES
-            structure = new Structure(new Vector2(100, 465), 0f, pixelTexture2D, Color.Black, true);
+            structure = new Structure(new Vector2(100, 465), 0f, pixelTexture2D, Color.Red, true);
 
             // PLAYER
             player = new Player(new Vector2(0, 0), 0.0f, pixelTexture2D, 200f, Color.White, true);
-            player.Mass = 35;
+            player.Mass = 40;
 
             base.Initialize();
         }
@@ -82,7 +82,7 @@ namespace Force.Game.Examples
                 Exit();
 
             // PLAYER
-            player.AcceleratePlatformerMovement(gameTime);
+            player.AcceleratePlatformMovement(gameTime);
             player.SimplePhysics(gameTime, new Vector2(0, 9.81f));
             player.Update(gameTime);
 
@@ -119,7 +119,7 @@ namespace Force.Game.Examples
         #region DRAW
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Red);
 
             // SPRITE BATCH DRAW
             #region SPRITE_BATCH_DRAW
@@ -129,7 +129,7 @@ namespace Force.Game.Examples
             {
                 for (int y = 0; y < graphics.PreferredBackBufferHeight + 32; y += 32)
                 {
-                    spriteBatch.Draw(pixelTexture2D, new Rectangle(x, y, 32, 32), Color.Magenta);
+                    spriteBatch.Draw(pixelTexture2D, new Rectangle(x, y, 32, 32), Color.Black);
 
                 }
             }

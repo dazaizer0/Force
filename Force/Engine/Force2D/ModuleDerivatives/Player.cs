@@ -72,7 +72,7 @@ namespace Force.Engine.Force2D.ModuleDerivatives
             }
         }
 
-        public void AcceleratePlatformerMovement(GameTime gameTime)
+        public void AcceleratePlatformMovement(GameTime gameTime)
         {
             var keyboard_state = Keyboard.GetState();
 

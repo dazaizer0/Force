@@ -2,7 +2,7 @@ using Force.Engine.ForceAll.StaticManager;
 using System;
 
 // PROPERTIES
-SceneManager.ActualScene = 2;
+SceneManager.ActualScene = 0;
 
 // PROGRAM
 if (SceneManager.ActualScene == 0)
@@ -17,6 +17,6 @@ else if (SceneManager.ActualScene == 1)
 }
 else if (SceneManager.ActualScene == 2)
 {
-    using var actualGameScene = new Force.Game.GameScene();
+    using var actualGameScene = new Force.Game.Examples.TopDown();
     actualGameScene.Run();
 }

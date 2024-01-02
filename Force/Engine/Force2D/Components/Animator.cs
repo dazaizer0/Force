@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 
-namespace Force.Engine.Force2D.Modules.Components
+namespace Force.Engine.Force2D.Components
 {
     internal class Animator
     {
