@@ -18,6 +18,7 @@ namespace Force.Engine.Force2D.ModuleDerivatives
         public bool JumpEnable = true;
 
         // PRIVATE
+        private bool pressed;
         private bool IsJumping = false;
         private float JumpTime = 0f;
         private const float MaxJumpTime = 0.5f;
@@ -44,7 +45,7 @@ namespace Force.Engine.Force2D.ModuleDerivatives
         {
             if (FMath.FMath.Abs(this.Position.Y - other.Position.Y) < 10)
             {
-                Position -= other.PlayerMoveDirection * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                Position -= other.StructureMoveDirection * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             else
             {
@@ -58,12 +59,12 @@ namespace Force.Engine.Force2D.ModuleDerivatives
 
         public void SimpleCollideWith(Structure other, GameTime gameTime)
         {
-            Position -= other.PlayerMoveDirection * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Position -= other.StructureMoveDirection * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void AutomaticGetOn(Structure other, GameTime gameTime)
         {
-            Position -= other.PlayerMoveDirection * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Position -= other.StructureMoveDirection * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (this.Position.Y > other.Position.Y - this.Texture.Height)
             {
@@ -154,6 +155,42 @@ namespace Force.Engine.Force2D.ModuleDerivatives
             else
             {
                 Speed = BaseSpeed;
+            }
+        }
+
+        public void AccelerateGridTopDownMovement(GameTime gameTime)
+        {
+            var keyboardState = Keyboard.GetState();
+            Speed = BaseSpeed;
+
+            if (keyboardState.IsKeyDown(Keys.D) && !pressed)
+            {
+                Position.X += (Speed + 1024) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveDirection = new Vector2(1, 0);
+                pressed = true;
+            }
+            else if (keyboardState.IsKeyDown(Keys.A) && !pressed)
+            {
+                Position.X -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveDirection = new Vector2(-1, 0);
+                pressed = true;
+            }
+            else if (keyboardState.IsKeyDown(Keys.W) && !pressed)
+            {
+                Position.Y -= Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveDirection = new Vector2(0, -1);
+                pressed = true;
+            }
+            else if (keyboardState.IsKeyDown(Keys.S) && !pressed)
+            {
+                Position.Y += (Speed + 1024) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                MoveDirection = new Vector2(0, 1);
+                pressed = true;
+            }
+
+            if (keyboardState.GetPressedKeys().Length == 0)
+            {
+                pressed = false;
             }
         }
 

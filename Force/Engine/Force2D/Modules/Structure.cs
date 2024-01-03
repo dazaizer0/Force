@@ -11,7 +11,7 @@ namespace Force.Engine.Force2D.Modules
         // PROPERTIES
         public Texture2D Texture;
         public Color ObjectColor;
-        public Vector2 PlayerMoveDirection;
+        public Vector2 StructureMoveDirection;
 
         public float RotationSpeed = 1f;
 
@@ -44,8 +44,8 @@ namespace Force.Engine.Force2D.Modules
 
         public void GetStructureMoveDirection(Structure structure)
         {
-            PlayerMoveDirection = Position - structure.Position;
-            PlayerMoveDirection.Normalize();
+            StructureMoveDirection = Position - structure.Position;
+            StructureMoveDirection.Normalize();
         }
 
         public void LookAt(Vector2 target, GameTime gameTime)
