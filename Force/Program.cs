@@ -2,7 +2,7 @@ using Force.Engine.ForceAll.StaticManager;
 using System;
 
 // PROPERTIES
-SceneManager.ActualScene = 2;
+SceneManager.ActualScene = 0;
 
 // PROGRAM
 if (SceneManager.ActualScene == 0)
