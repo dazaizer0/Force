@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 
-namespace Force.Engine.Force2D.FMath
+namespace Force.Source.Force2D.FMath
 {
     // FORCE MATH 
     internal class FMath

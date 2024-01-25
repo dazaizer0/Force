@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 
-namespace Force.Engine.ForceAll.StaticManager
+namespace Force.Source.Force.StaticManager
 {
     static class SceneManager
     {

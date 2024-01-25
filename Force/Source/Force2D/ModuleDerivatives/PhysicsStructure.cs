@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 
-using Force.Engine.Force2D.Modules;
+using Force.Source.Force2D.Modules;
 
-namespace Force.Engine.Force2D.ModuleDerivatives
+namespace Force.Source.Force2D.ModuleDerivatives
 {
     internal class PhysicsStructure : Structure
     {
