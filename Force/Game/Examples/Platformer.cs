@@ -31,6 +31,10 @@ namespace Force.Game.Examples
         private Player player;
         private Camera camera;
 
+        // AUDIO
+        private Song jojoSong;
+        private bool jojoSongActivated = false;
+
         #endregion
 
         #region PLATFORMER
@@ -65,9 +69,11 @@ namespace Force.Game.Examples
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // LOAD TEXTURES
+            // LOAD CONTENT
             player.Texture = Content.Load<Texture2D>("textures/white_box32");
             structure.Texture = Content.Load<Texture2D>("textures/white_box32");
+
+            jojoSong = Content.Load<Song>("audio/jojod");
 
             // CREATE PIXEL TEXTURE
             pixelTexture2D = new Texture2D(GraphicsDevice, 1, 1);
@@ -81,6 +87,13 @@ namespace Force.Game.Examples
             // EXIT CONDITION
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            // AUDIO
+            if (!jojoSongActivated) 
+            {
+                MediaPlayer.Play(jojoSong);
+                jojoSongActivated = true; 
+            }
 
             // PLAYER
             player.AcceleratePlatformMovement(gameTime);

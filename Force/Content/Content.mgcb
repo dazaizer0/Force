@@ -13,11 +13,11 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Audio/music.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
+#begin Audio/jojod.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
 /processorParam:Quality=Best
-/build:Audio/music.wav
+/build:Audio/jojod.mp3
 
 #begin Textures/white_box32.png
 /importer:TextureImporter

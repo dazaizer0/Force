@@ -1,36 +1,21 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using System;
+using Microsoft.Xna.Framework.Media;
 
 namespace Force.Source.Force.Audio
 {
-    internal class AudioPlayer
+    internal class ForceSongPlayer
     {
-        public SoundEffect Audio { get; set; }
-
-        private SoundEffectInstance AudioInstance { get; set; }
+        public Song SongAudio;
         public bool AudioPlaying { get; private set; }
-
-        public void Initialize()
-        {
-            AudioInstance = Audio.CreateInstance();
-        }
 
         public void Play()
         {
-            if (AudioInstance != null)
+            if (!this.AudioPlaying)
             {
-                AudioInstance.Play();
-                AudioPlaying = true;
-            }
-        }
-
-        public void Stop()
-        {
-            if (AudioInstance != null && AudioPlaying)
-            {
-                AudioInstance.Stop();
-                AudioPlaying = false;
+                MediaPlayer.Play(this.SongAudio);
+                this.AudioPlaying = true;
             }
         }
     }
