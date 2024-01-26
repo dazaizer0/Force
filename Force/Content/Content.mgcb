@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/music.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/music.wav
+
 #begin Textures/white_box32.png
 /importer:TextureImporter
 /processor:TextureProcessor

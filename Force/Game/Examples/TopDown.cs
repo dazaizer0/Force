@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
 
+using Force.Source.Force.SceneManager;
 using Force.Source.Force2D.Physics;
 using Force.Source.Force2D.FMath;
 using Force.Source.Force2D.ModuleDerivatives;
@@ -55,6 +56,7 @@ namespace Force.Game.Examples
 
             // STRUCTURES
             circle = new Structure(new Vector2(100, 100), 0f, pixelTexture2D, Color.White, true);
+
             gridCursor = new Structure(new Vector2(0, 0), 0f, pixelTexture2D, Color.Yellow, true);
 
             movingStructure = new MovingStructure(new Vector2(100, 150), 50, 0f, pixelTexture2D, Color.Red, true);
@@ -131,6 +133,11 @@ namespace Force.Game.Examples
             if (player.DetectCollisionWith(movingStructure))
             {
                 movingStructure.ObjectColor = Color.Blue;
+
+                Exit();
+
+                SceneManager.ActualScene = 0;
+                SceneManager.ChangeScene();
             }
             else
             {

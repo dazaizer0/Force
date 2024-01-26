@@ -8,6 +8,9 @@ using Force.Source.Force2D.Physics;
 using Force.Source.Force2D.FMath;
 using Force.Source.Force2D.ModuleDerivatives;
 using Force.Source.Force2D.Modules;
+using Force.Source.Force.Audio;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace Force.Game.Examples
 {
@@ -27,6 +30,7 @@ namespace Force.Game.Examples
         // PLAYER
         private Player player;
         private Camera camera;
+
         #endregion
 
         #region PLATFORMER
